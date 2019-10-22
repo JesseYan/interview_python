@@ -366,6 +366,21 @@ AttributeError: myClass instance has no attribute '__superprivate'
 
 但是有点丑..format就没有这些问题.你给的第二个问题也是这样,.format好看多了.
 
+format用法
+```python
+sub1 = "python string!"
+sub2 = "an arg"
+
+a = "i am a %s" % sub1
+b = "i am a {0}".format(sub1)
+
+c = "with %(kwarg)s!" % {'kwarg':sub2}
+d = "with {kwarg}!".format(kwarg=sub2)
+
+tu = (12,45,22222,103,6)
+print '{0} {2} {1} {2} {3} {2} {4} {2}'.format(*tu)
+```
+
 你为什么不用它?
 
 * 不知道它(在读这个之前)
