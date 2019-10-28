@@ -215,10 +215,13 @@ a=A()
 
 ```
 
-| \\      | 实例方法     | 类方法            | 静态方法 函数的地址与上面相同 |
+| \\      | 实例方法     | 类方法            | 静态方法  |
 | :------ | :------- | :------------- | :-------------- |
 | a = A() | a.foo(x) | a.class_foo(x) | a.static_foo(x) |
 | A       | 不可用      | A.class_foo(x) | A.static_foo(x) |
+
+**静态方法的两个函数的地址相同**
+`a.static_foo` 与 `A.static_foo`
 
 outer_foo vs static_foo:二者本质是是一样的。
 - outer_foo 外部函数，所有类或者方法都可以共用
