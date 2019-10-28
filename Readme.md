@@ -489,6 +489,63 @@ http://stackoverflow.com/questions/3394835/args-and-kwargs
 
 装饰器是一个很著名的设计模式，经常被用于有切面需求的场景，较为经典的有插入日志、性能测试、事务处理等。装饰器是解决这类问题的绝佳设计，有了装饰器，我们就可以抽离出大量函数中与函数功能本身无关的雷同代码并继续重用。概括的讲，**装饰器的作用就是为已经存在的对象添加额外的功能。**
 
+手写装饰器
+
+```python
+# A decorator is a function that expects ANOTHER function as parameter
+def my_shiny_new_decorator(a_function_to_decorate):
+
+    # Inside, the decorator defines a function on the fly: the wrapper.
+    # This function is going to be wrapped around the original function
+    # so it can execute code before and after it.
+    def the_wrapper_around_the_original_function():
+
+        # Put here the code you want to be executed BEFORE the original function is called
+        print("Before the function runs")
+
+        # Call the function here (using parentheses)
+        a_function_to_decorate()
+
+        # Put here the code you want to be executed AFTER the original function is called
+        print("After the function runs")
+
+    # At this point, "a_function_to_decorate" HAS NEVER BEEN EXECUTED.
+    # We return the wrapper function we have just created.
+    # The wrapper contains the function and the code to execute before and after. It’s ready to use!
+    return the_wrapper_around_the_original_function
+```
+或者
+```python
+from functools import wraps
+
+def makebold(fn):
+    @wraps(fn)
+    def wrapped(*args, **kwargs):
+        return "<b>" + fn(*args, **kwargs) + "</b>"
+    return wrapped
+
+def makeitalic(fn):
+    @wraps(fn)
+    def wrapped(*args, **kwargs):
+        return "<i>" + fn(*args, **kwargs) + "</i>"
+    return wrapped
+
+@makebold
+@makeitalic
+def hello():
+    return "hello world"
+
+@makebold
+@makeitalic
+def log(s):
+    return s
+
+print hello()        # returns "<b><i>hello world</i></b>"
+print hello.__name__ # with functools.wraps() this returns "hello"
+print log('hello')   # returns "<b><i>hello</i></b>"
+```
+
+
 这个问题比较大,推荐: http://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python
 
 中文: http://taizilongxu.gitbooks.io/stackoverflow-about-python/content/3/README.html
