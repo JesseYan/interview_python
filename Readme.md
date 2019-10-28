@@ -220,7 +220,7 @@ a=A()
 | a = A() | a.foo(x) | a.class_foo(x) | a.static_foo(x) |
 | A       | 不可用      | A.class_foo(x) | A.static_foo(x) |
 
-**静态方法的两个函数的地址相同**
+**静态方法的两个函数的地址相同，指向同一个函数对象**
 `a.static_foo` 与 `A.static_foo`
 
 outer_foo vs static_foo:二者本质是是一样的。
